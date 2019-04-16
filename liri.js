@@ -24,15 +24,27 @@ axios.get("http://www.omdbapi.com/?t=remember+the+titans&y=&plot=short&apikey=tr
     }
 );
 
+function Bands() {
+    var queryURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
+    console.log(queryURL);
+    axios.get("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp").then(
+        function (response) {
+            for (let i = 0; i < 6; i++) {
+                console.log("Name of the venue: " + response.data[i].venue.name)
+                console.log("Venue location: " + response.data[i].venue.city)
+                console.log("Venue date: " + response.data[i].venue.datetime)
 
-var queryURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
+            }
+        })
+}
+
 
 
 
 var spotifyMusic = function (trackQuery) {
-    var spotify = require("spotify");
+    var spotify = require("node-spotify-api");
 
-    spotify.search({ type: "track", query: trackQuery }, function (error, data) {
+    axios.get({ type: "track", query: trackQuery }, function (error, data) {
         if (error) {
             console.log("There is an error: " + error);
         } else {
@@ -67,7 +79,7 @@ var getMovie = function () {
         {
             type: 'input',
             name: 'movieInput',
-            message: 'What movie do you wnat information on?'
+            message: 'What movie do you want information on?'
         }
 
     ]).then(function (response) {
